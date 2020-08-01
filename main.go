@@ -2,11 +2,12 @@ package main
 
 import (
 	"blockchain/block"
-	"fmt"
 )
 
 func main() {
 	blockchain := block.InitBlockChain()
-	fmt.Printf("Blockchain : %x", blockchain)
+	blockchain.AddBlock("First Block")
+	blockchain.AddBlock("Second Block")
+	blockchain.ShowInfo()
 
 }
