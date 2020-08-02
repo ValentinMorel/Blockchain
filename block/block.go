@@ -52,10 +52,10 @@ func InitBlockChain() *BlockChain {
 }
 
 func (b *BlockChain) ShowInfo() {
-	for i, blck := range b.Blocks {
-		fmt.Printf("PrevHash Block %d : %x \n", i+1, blck.PrevHash)
-		fmt.Printf("Data Block %d : %x \n", i+1, blck.Data)
-		fmt.Printf("Hash Block %d : %x \n\n", i+1, blck.Hash)
+	for _, blck := range b.Blocks {
+		fmt.Printf("PrevHash Block : %x \n", blck.PrevHash)
+		fmt.Printf("Data Block : %s \n", blck.Data)
+		fmt.Printf("Hash Block : %x \n\n", blck.Hash)
 
 		pow := NewProof(blck)
 		fmt.Printf("PoW : %s\n", strconv.FormatBool(pow.Validate()))

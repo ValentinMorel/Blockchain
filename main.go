@@ -7,8 +7,8 @@ import (
 func main() {
 
 	blockchain := block.InitBlockChain()
-	blockchain.AddBlock("First Block")
-	blockchain.AddBlock("Second Block")
+	blockchain.AddBlock("First Block after Genesis")
+	blockchain.AddBlock("Second Block after")
 	blockchain.ShowInfo()
 
 }
