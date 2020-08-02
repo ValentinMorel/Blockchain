@@ -5,6 +5,7 @@ import (
 )
 
 func main() {
+
 	blockchain := block.InitBlockChain()
 	blockchain.AddBlock("First Block")
 	blockchain.AddBlock("Second Block")

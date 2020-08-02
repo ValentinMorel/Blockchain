@@ -4,12 +4,18 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"fmt"
+	"strconv"
 )
 
 type Block struct {
 	Hash     []byte
 	Data     []byte
 	PrevHash []byte
+	Nonce    int
+}
+
+type BlockChain struct {
+	Blocks []*Block
 }
 
 func (b *Block) DeriveHash() {
@@ -23,10 +29,6 @@ func Genesis() *Block {
 	return CreateBlock("Genesis Block", []byte{})
 }
 
-type BlockChain struct {
-	Blocks []*Block
-}
-
 func (chain *BlockChain) AddBlock(data string) {
 	prevBlock := chain.Blocks[len(chain.Blocks)-1]
 	new := CreateBlock(data, prevBlock.Hash)
@@ -34,8 +36,14 @@ func (chain *BlockChain) AddBlock(data string) {
 }
 
 func CreateBlock(data string, prevHash []byte) *Block {
-	block := &Block{[]byte{}, []byte(data), prevHash}
-	block.DeriveHash()
+	block := &Block{[]byte{}, []byte(data), prevHash, 0}
+
+	pow := NewProof(block)
+	nonce, hash := pow.Run()
+
+	block.Hash = hash[:]
+	block.Nonce = nonce
+
 	return block
 }
 
@@ -48,5 +56,9 @@ func (b *BlockChain) ShowInfo() {
 		fmt.Printf("PrevHash Block %d : %x \n", i+1, blck.PrevHash)
 		fmt.Printf("Data Block %d : %x \n", i+1, blck.Data)
 		fmt.Printf("Hash Block %d : %x \n\n", i+1, blck.Hash)
+
+		pow := NewProof(blck)
+		fmt.Printf("PoW : %s\n", strconv.FormatBool(pow.Validate()))
+		fmt.Println()
 	}
 }
