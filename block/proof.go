@@ -75,6 +75,7 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 }
 
 func (pow *ProofOfWork) Validate() bool {
+	// Initialization with big.Int type to use compare function later
 	var intHash big.Int
 	data := pow.InitData(pow.Block.Nonce)
 
