@@ -1,6 +1,9 @@
-package block
+package cli
 
 import (
+	"blockchain/block"
+	"blockchain/blockchain"
+	"blockchain/handler"
 	"flag"
 	"fmt"
 	"os"
@@ -9,7 +12,7 @@ import (
 )
 
 type CommandLine struct {
-	Blockchain *BlockChain
+	Blockchain *blockchain.BlockChain
 }
 
 func (cli *CommandLine) printUsage() {
@@ -39,7 +42,7 @@ func (cli *CommandLine) printChain() {
 		fmt.Printf("Prev. hash: %x\n", blck.PrevHash)
 		fmt.Printf("Data: %s\n", blck.Data)
 		fmt.Printf("Hash: %x\n", blck.Hash)
-		pow := NewProof(blck)
+		pow := block.NewProof(blck)
 		fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
 		fmt.Println()
 
@@ -59,11 +62,11 @@ func (cli *CommandLine) Run() {
 	switch os.Args[1] {
 	case "add":
 		err := addBlockCmd.Parse(os.Args[2:])
-		Handle(err)
+		handler.Handle(err)
 
 	case "print":
 		err := printChainCmd.Parse(os.Args[2:])
-		Handle(err)
+		handler.Handle(err)
 
 	default:
 		cli.printUsage()
