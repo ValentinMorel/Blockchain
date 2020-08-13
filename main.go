@@ -1,6 +1,7 @@
 package main
 
 import (
+	"blockchain/api"
 	"blockchain/blockchain"
 	"blockchain/cli"
 	"log"
@@ -23,7 +24,7 @@ func main() {
 
 	case "api":
 		log.Println("Running api side.")
-		//TODO : api backend
+		api.Test()
 
 	default:
 		log.Fatal("Not a valid argument.")
