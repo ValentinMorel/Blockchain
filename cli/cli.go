@@ -59,7 +59,7 @@ func (cli *CommandLine) Run() {
 	printChainCmd := flag.NewFlagSet("print", flag.ExitOnError)
 	addBlockData := addBlockCmd.String("block", "", "Block data")
 
-	switch os.Args[1] {
+	switch os.Args[2] {
 	case "add":
 		err := addBlockCmd.Parse(os.Args[2:])
 		handler.Handle(err)
